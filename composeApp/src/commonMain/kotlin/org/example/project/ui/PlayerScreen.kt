@@ -57,7 +57,7 @@ fun PlayerScreen(
                 title = {Text("Сейчас Играет")},
                 navigationIcon = {
                     IconButton(
-                        onClick = {onBack}
+                        onClick = onBack
                     ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
@@ -111,7 +111,7 @@ fun PlayerScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
-                    onClick = {onPrev},
+                    onClick = onPrev,
                     modifier = Modifier.size(60.dp)
                 ) {
                     Icon(
@@ -122,7 +122,7 @@ fun PlayerScreen(
                 }
 
                 FilledIconButton(
-                    onClick = {onPlayPause},
+                    onClick = onPlayPause,
                     modifier = Modifier.size(70.dp),
                     shape = CircleShape,
                     colors = IconButtonDefaults.filledIconButtonColors(
@@ -136,7 +136,7 @@ fun PlayerScreen(
                     )
                 }
                 IconButton(
-                    onClick = {onNext},
+                    onClick = onNext,
                     modifier = Modifier.size(60.dp)
                 ) {
                     Icon(

@@ -52,9 +52,9 @@ fun App() {
             PlayerScreen(
                 song = currentSong!!,
                 playerState = playerState,
-                onPlayPause = TODO(),
-                onNext = TODO(),
-                onPrev = TODO(),
+                onPlayPause = viewModel::togglePlayPause,
+                onNext = { TODO() },
+                onPrev = { TODO() },
                 onBack = {showPlayer = false},
             )
         } else {
