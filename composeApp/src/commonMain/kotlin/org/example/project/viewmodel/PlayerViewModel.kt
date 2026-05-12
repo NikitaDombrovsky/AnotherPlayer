@@ -19,7 +19,7 @@ class PlayerViewModel : ViewModel() {
     private val _songs = MutableStateFlow<List<Song>>(emptyList())
     val song: StateFlow<List<Song>> = _songs.asStateFlow()
 
-    val audioPlayer = createPlayerController()
+    val audioPlayer = createPlayerController(viewModelScope)
 
     val playerState: StateFlow<PlayerState> = audioPlayer.state
 

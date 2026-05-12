@@ -1,6 +1,7 @@
 package org.example.project
 
 import android.media.MediaPlayer
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,7 +10,7 @@ import org.example.project.audio.PlayerController
 import org.example.project.audio.PlayerState
 
 
-actual fun createPlayerController(): PlayerController = AndroidAudioPlayer()
+actual fun createPlayerController(scope: CoroutineScope): PlayerController = AndroidAudioPlayer()
 
 
 class AndroidAudioPlayer : PlayerController {
