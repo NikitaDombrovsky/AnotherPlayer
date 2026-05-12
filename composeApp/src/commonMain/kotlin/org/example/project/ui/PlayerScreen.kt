@@ -37,18 +37,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.example.project.audio.PlayerState
+import org.example.project.data.Song
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerScreen() {
+fun PlayerScreen(
+    song: Song,
+    playerState: PlayerState,
+    onPlayPause: () -> Unit,
+    onNext: () -> Unit,
+    onPrev: () -> Unit,
+    //onSeek: () -> Unit,
+    onBack: () -> Unit,
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {Text("Сейчас Играет")},
                 navigationIcon = {
                     IconButton(
-                        onClick = {/*TODO*/}
+                        onClick = {onBack}
                     ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
@@ -84,7 +93,7 @@ fun PlayerScreen() {
 
             Spacer(Modifier.height(20.dp))
             Text(
-                text = "TODO",
+                text = song.title,
                 style = MaterialTheme.typography.bodyLarge,
             )
             Spacer(Modifier.height(20.dp))
@@ -102,7 +111,7 @@ fun PlayerScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
-                    onClick = {/*TODO*/},
+                    onClick = {onPrev},
                     modifier = Modifier.size(60.dp)
                 ) {
                     Icon(
@@ -111,9 +120,9 @@ fun PlayerScreen() {
                         modifier = Modifier.size(30.dp)
                     )
                 }
-                val test = false
+
                 FilledIconButton(
-                    onClick = {/*TODO*/},
+                    onClick = {onPlayPause},
                     modifier = Modifier.size(70.dp),
                     shape = CircleShape,
                     colors = IconButtonDefaults.filledIconButtonColors(
@@ -121,13 +130,13 @@ fun PlayerScreen() {
                     )
                 ){
                     Icon(
-                        imageVector = if(test) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                        contentDescription = if (test) "Pause" else "Play",
+                        imageVector = if(playerState.isPlaying) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                        contentDescription = if (playerState.isPlaying) "Pause" else "Play",
                         modifier = Modifier.size(40.dp)
                     )
                 }
                 IconButton(
-                    onClick = {/*TODO*/},
+                    onClick = {onNext},
                     modifier = Modifier.size(60.dp)
                 ) {
                     Icon(

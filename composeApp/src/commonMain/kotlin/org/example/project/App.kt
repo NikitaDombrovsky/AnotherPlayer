@@ -34,19 +34,29 @@ import player.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 fun App() {
+    val viewModel: PlayerViewModel = viewModel { PlayerViewModel() }
+    val songs by viewModel.song.collectAsState()
+
     var showPlayer by remember { mutableStateOf(false) }
+
+    val currentSong by viewModel.currentSong.collectAsState()
+    val playerState by viewModel.playerState.collectAsState()
 
 
     MaterialTheme {
-        val viewModel: PlayerViewModel = viewModel { PlayerViewModel() }
 
-        val songs by viewModel.song.collectAsState()
 
-        println(songs.toString())
 
 
         if (showPlayer) {
-            PlayerScreen()
+            PlayerScreen(
+                song = currentSong!!,
+                playerState = playerState,
+                onPlayPause = TODO(),
+                onNext = TODO(),
+                onPrev = TODO(),
+                onBack = {showPlayer = false},
+            )
         } else {
             SongListScreen(
                 songs = songs,

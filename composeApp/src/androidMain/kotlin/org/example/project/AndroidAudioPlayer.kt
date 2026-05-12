@@ -4,6 +4,7 @@ import android.media.MediaPlayer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import org.example.project.audio.PlayerController
 import org.example.project.audio.PlayerState
 
@@ -22,19 +23,24 @@ class AndroidAudioPlayer : PlayerController {
         mediaPlayer = MediaPlayer().apply {
             setDataSource(url)
             prepareAsync()
-            setOnPreparedListener {
-                it.start()
+            setOnPreparedListener { song ->
+                song.start()
+                _state.update {
+                    it.copy(isLoading = false, isPlaying = true, durationMs = song.duration.toLong())
+                }
             }
         }
         print(mediaPlayer?.getSelectedTrack(2))
     }
 
     override fun pause() {
-        TODO("Not yet implemented")
+        mediaPlayer?.pause()
+        _state.update { it.copy(isPlaying = false) }
     }
 
     override fun resume() {
-        TODO("Not yet implemented")
+        mediaPlayer?.start()
+        _state.update { it.copy(isPlaying = true) }
     }
 
     override fun searchTo(positionMs: Long) {
