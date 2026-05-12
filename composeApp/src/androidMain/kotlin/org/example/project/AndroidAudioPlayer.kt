@@ -58,7 +58,6 @@ class AndroidAudioPlayer(
     override fun searchTo(positionMs: Long) {
         mediaPlayer?.seekTo(positionMs.toInt())
         _state.update { it.copy(currentPositionMs = positionMs) }
-        TODO("Not yet implemented")
     }
 
     private fun startTracking(){
