@@ -98,7 +98,9 @@ fun PlayerScreen(
             )
             Spacer(Modifier.height(20.dp))
 
-            val progress = playerState.currentPositionMs.toFloat() / playerState.durationMs.toFloat()
+            val progress = if (playerState.durationMs >0)
+                playerState.currentPositionMs.toFloat() / playerState.durationMs.toFloat()
+            else 0f
 
 
             Slider(
