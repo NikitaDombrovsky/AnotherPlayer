@@ -5,6 +5,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.project.audio.PlayerController
 import org.example.project.audio.PlayerState
@@ -29,7 +30,11 @@ class JsAudioPlayer(private val scope: CoroutineScope) : PlayerController {
 
         mediaPlayer.src = url
         mediaPlayer.load()
+        mediaPlayer.play()
 
+        _state.update {
+            it.copy(isLoading = false, isPlaying = true, durationMs = mediaPlayer.duration.toLong())
+        }
         trackingJob = scope.launch {
 
         }
