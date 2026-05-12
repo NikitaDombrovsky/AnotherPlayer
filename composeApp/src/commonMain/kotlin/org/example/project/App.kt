@@ -55,6 +55,7 @@ fun App() {
                 onPlayPause = viewModel::togglePlayPause,
                 onNext = { TODO() },
                 onPrev = { TODO() },
+                onSeek = viewModel::seekTo,
                 onBack = {showPlayer = false},
             )
         } else {

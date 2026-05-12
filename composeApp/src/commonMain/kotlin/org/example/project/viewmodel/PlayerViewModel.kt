@@ -48,5 +48,6 @@ class PlayerViewModel : ViewModel() {
             _songs.value = repository.getSongs()
         }
     }
+    fun seekTo(positionMs: Long) = audioPlayer.searchTo(positionMs)
 
 }

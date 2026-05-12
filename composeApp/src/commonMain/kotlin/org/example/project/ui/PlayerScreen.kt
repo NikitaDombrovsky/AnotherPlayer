@@ -48,7 +48,7 @@ fun PlayerScreen(
     onPlayPause: () -> Unit,
     onNext: () -> Unit,
     onPrev: () -> Unit,
-    //onSeek: () -> Unit,
+    onSeek: (Long) -> Unit,
     onBack: () -> Unit,
 ) {
     Scaffold(
@@ -98,10 +98,21 @@ fun PlayerScreen(
             )
             Spacer(Modifier.height(20.dp))
 
+            val progress = playerState.currentPositionMs.toFloat() / playerState.durationMs.toFloat()
+
+
             Slider(
-                value = 0.2f,
-                onValueChange = {/*TODO*/}
+                value = progress,
+                onValueChange = {onSeek(it.toLong())}
             )
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ){
+                Text(playerState.currentPositionMs.toString(), style = MaterialTheme.typography.bodySmall)
+                Text(playerState.durationMs.toString(), style = MaterialTheme.typography.bodySmall)
+            }
+
 
             Spacer(Modifier.height(20.dp))
 
