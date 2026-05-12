@@ -5,15 +5,18 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.example.project.audio.PlayerController
 import org.example.project.audio.PlayerState
 
 
-actual fun createPlayerController(scope: CoroutineScope): PlayerController =
-    JsAudioPlayer(scope)
+actual fun createPlayerController(scope: CoroutineScope): PlayerController = JsAudioPlayer(scope)
 
 
 class JsAudioPlayer(private val scope: CoroutineScope) : PlayerController {
+
+    private val mediaPlayer: dynamic = js("new Audio()")
+
 
     private val _state = MutableStateFlow(PlayerState())
     override val state: StateFlow<PlayerState> = _state.asStateFlow()
@@ -24,7 +27,12 @@ class JsAudioPlayer(private val scope: CoroutineScope) : PlayerController {
     override fun play(url: String) {
         trackingJob?.cancel()
 
-        trackingJob = scope
+        mediaPlayer.src = url
+        mediaPlayer.load()
+
+        trackingJob = scope.launch {
+
+        }
 
 
 
