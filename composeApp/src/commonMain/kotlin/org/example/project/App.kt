@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.example.project.data.Song
+import org.example.project.ui.PlayerScreen
+import org.example.project.ui.SongListScreen
 import org.example.project.viewmodel.PlayerViewModel
 import org.jetbrains.compose.resources.painterResource
 
@@ -32,41 +34,29 @@ import player.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 fun App() {
+    var showPlayer by remember { mutableStateOf(false) }
+
+
     MaterialTheme {
         val viewModel: PlayerViewModel = viewModel { PlayerViewModel() }
 
         val songs by viewModel.song.collectAsState()
 
         println(songs.toString())
-        SongListScreen(songs)
-    }
-}
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SongListScreen(
-    songs: List<Song>
-){
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Песни Валерия Меладзе") }
+
+
+        if (showPlayer) {
+            PlayerScreen()
+        } else {
+            SongListScreen(
+                songs = songs,
+                onSongClick = { song ->
+                    //viewModel.
+                    showPlayer = true
+                }
             )
         }
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = it
-        ){
-            items(items=songs, key = {it.id}){ song ->
-                ListItem(
-                    headlineContent = {
-                        Text(
-                            text = song.title
-                        )
-                    }
-                )
 
-            }
-        }
+
     }
 }
