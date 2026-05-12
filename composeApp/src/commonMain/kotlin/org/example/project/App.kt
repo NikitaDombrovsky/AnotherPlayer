@@ -51,7 +51,7 @@ fun App() {
             SongListScreen(
                 songs = songs,
                 onSongClick = { song ->
-                    //viewModel.
+                    viewModel.selectSong(song)
                     showPlayer = true
                 }
             )

@@ -24,11 +24,19 @@ class PlayerViewModel : ViewModel() {
     val playerState: StateFlow<PlayerState> = audioPlayer.state
 
 
+    val _currentSong = MutableStateFlow<Song?>(null)
+    val currentSong: StateFlow<Song?> = _currentSong.asStateFlow()
 
     init {
         loadSongs()
         // TODO Тест
         //audioPlayer.play("https://myheihcbyastpymcpqiy.supabase.co/storage/v1/object/public/audio/music2.mp3")
+    }
+
+    fun selectSong(song: Song)
+    {
+        _currentSong.value = song
+        audioPlayer.play(song.audioUrl)
     }
 
     private fun loadSongs(){
