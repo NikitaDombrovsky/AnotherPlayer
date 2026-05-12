@@ -51,6 +51,8 @@ kotlin {
             implementation(libs.ktor.content.negotiation)
             implementation(libs.ktor.serialization.json)
             implementation(libs.kotlinx.serialization.json)
+            //implementation(libs.androidx.core.icons)
+            implementation(compose.materialIconsExtended)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

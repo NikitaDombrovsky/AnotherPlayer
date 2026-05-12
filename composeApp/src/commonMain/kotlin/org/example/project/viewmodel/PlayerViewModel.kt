@@ -28,7 +28,7 @@ class PlayerViewModel : ViewModel() {
     init {
         loadSongs()
         // TODO Тест
-        audioPlayer.play("https://myheihcbyastpymcpqiy.supabase.co/storage/v1/object/public/audio/music2.mp3")
+        //audioPlayer.play("https://myheihcbyastpymcpqiy.supabase.co/storage/v1/object/public/audio/music2.mp3")
     }
 
     private fun loadSongs(){
